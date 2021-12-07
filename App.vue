@@ -4,7 +4,7 @@
     <main class="flex-fill">
       <div class="container-fluid">
         <div class="row mb-5">
-          <h1>Degree Planner</h1>
+          <h1 class = "title">Degree Planner</h1>
         </div>
         <div class="row main-content">
           <!-- Classes -->
@@ -17,7 +17,7 @@
               <b-tab title="LAC" active>
                 <div id="lac">
                   <div class="my-4 text-left" id="lac-reqs">
-                    <CourseInfoCard :course=c  v-for="c in lacCourses" :key="c['Course ID']" @add-course = "AddCoursesToSchedule" />
+                    <CourseInfoCard :course=c  v-for="c in lacCourses" :key="c.id" @add-course = "AddCoursesToSchedule" />
 
                   </div>
                 </div>
@@ -25,8 +25,8 @@
 
               <b-tab title="IDD" active>
                 <div id="idd">
-                  <div class="my-4 text-left" id="lac-reqs">
-                    <CourseInfoCard :course=c  v-for="c in iddCourses" :key="c['Course ID'] " @add-course = "AddCoursesToSchedule" />
+                  <div class="my-4 text-left" id="idd-reqs">
+                    <CourseInfoCard :course=c  v-for="c in iddCourses" :key="c.id " @add-course = "AddCoursesToSchedule" />
                   </div>
                 </div>
               </b-tab>
@@ -36,7 +36,7 @@
           </div>
 
           <div class="semesterschedules">
-              <SemesterSchedule :schedules="schedules"/>
+              <SemesterSchedule :schedules="schedules" @remove = "remove"/>
 
           </div>
           <!-- Semester Schedules -->
@@ -160,11 +160,21 @@ export default {
   methods: {
 
     AddCoursesToSchedule(course) {
-      this.schedules.forEach((semester)) => {
+      this.schedules.forEach((semester) => {
         if(semester.id == course.semester && !semester.classes.includes(course)) {
           semester.classes.push(course);
         }
-      };
+      })
+    },
+
+    remove(course) {
+      this.schedules.forEach((semester) => {
+        var index = semester.classes.indexOf(course)
+        if(semester.id == course.semester) {
+          semester.classes.splice(index, 1);
+        }
+      })
+  
     }
   }
 
@@ -172,8 +182,12 @@ export default {
 </script>
 
 <style>
+
+.title {
+  text-align: center
+}
 #app {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: 'leapis';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;

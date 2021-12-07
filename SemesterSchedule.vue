@@ -6,7 +6,7 @@
             <div
               v-for="schedule in schedules"
               v-bind:key="schedule.id"
-              class="accordion my-4"
+              class="accordion"
               id="schedule.id"
             >
               <div class="accordion-item">
@@ -15,7 +15,7 @@
                   id="fall2019heading"
                   v-b-toggle:[schedule.collapseId]
                 >
-                  <div class="">
+                  <div class="schedules">
                     <h4 class="my-0">{{ schedule.name }}</h4>
                   </div>
                 </h2>
@@ -35,6 +35,7 @@
                         <td> {{classes["Course ID"]}}</td>
                         <td> {{classes["Course Name"]}}</td>
                         <td> {{classes["Credit Hours"]}}</td>
+                        <td> <p class="btn" id = "remove" @click="remove(classes, schedule)" > <b>Remove</b> </p></td>
                       </tr>
                     </table>
                   </div>
@@ -54,9 +55,12 @@
       title: String,
       schedules: Object
     },
-    data() {
-      return {
+    methods: {
 
+      remove(classes, schedule) {
+        
+            classes.semester = schedule.id;
+            this.$emit("remove", classes);
       }
     }
   }
@@ -64,8 +68,36 @@
 
 <style>
 
-.accordion {
-    min-width: 40%;
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+
+.accordion-header {
+    background-color: 	rgb(173, 216, 230);
+    margin: auto;
+    border-top: 2px solid white;
+    font-family: 'leapis';
+    padding-left:100%;
+    padding-right:100%;
+    padding-top: 5px;
+}
+
+.schedules h4 {
+     writing-mode: horizontal-tb;
+     text-align: justify;
+     padding: 100%;
+     display: inline-block;
+}
+.accordion-body {
+  text-align: justify;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  justify-content: center;
+  float: center;
+}
+
+#remove {
+  color: darkred;
+  text-decoration: underline;
 }
 
 </style>

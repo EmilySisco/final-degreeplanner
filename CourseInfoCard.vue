@@ -21,13 +21,13 @@
 
         </b-form-select>
 
-        <b-button block variant="outline-secondary" class="my-2" @click = "AddCourses(selected)">Add</b-button>
+        <b-button block variant="outline-secondary" class="my-2" @click = "AddCourses">Add</b-button>
 
       </div>
 
       <div class="row">
         <div class="col">
-          <a href="#" class="card-link fw-light" v-b-toggle:shortID>Course description ›</a>
+          <a :href="'#' + shortID" class="card-link fw-light" v-b-toggle:shortID>Course description ›</a>
         </div>
       </div>
 
@@ -52,14 +52,14 @@ export default {
 
       options: [
         { value: null, text: "Please select an option" },
-        { value: { A:"fall2019"}, text: "Fall 2019" },
-        { value: { B:"spring2020"}, text: "Spring 2020" },
-        { value: { C:"fall2020"}, text: "Fall 2020" },
-        { value: { D:"spring2021"}, text: "Spring 2021" },
-        { value: { E:"fall2021"}, text: "Fall 2021" },
-        { value: { F:"spring2022"}, text: "Spring 2022" },
-        { value: { G:"fall2022"}, text: "Fall 2022" },
-        { value: { H:"spring2023"}, text: "Spring 2023" },
+        { value: "fall2019", text: "Fall 2019" },
+        { value: "spring2020", text: "Spring 2020" },
+        { value: "fall2020", text: "Fall 2020" },
+        { value: "spring2021", text: "Spring 2021" },
+        { value: "fall2021", text: "Fall 2021" },
+        { value: "spring2022", text: "Spring 2022" },
+        { value: "fall2022", text: "Fall 2022" },
+        { value: "spring2023", text: "Spring 2023" },
       ],
       selected: null,
       disabled: false
@@ -72,7 +72,7 @@ export default {
     },
     AddCourses() {
       this.course.semester = this.selected;
-      
+
       this.$emit("add-course", this.course)
     }
   },
@@ -87,5 +87,7 @@ export default {
 </script>
 
 <style>
-
+* {
+  font-family: 'leapis';
+}
 </style>
